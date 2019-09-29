@@ -113,18 +113,12 @@ def delete_blog(blog_id):
        for comment in comments:
            db.session.delete(comment)
            db.session.commit()
-        
-    
+
     user = current_user
-   
     db.session.delete(blog)
     db.session.commit()
-
     return redirect(url_for('.profile', uname=user.username))
     return render_template('profile/profile.html', user=user)  
-
-
-
 @main.route('/profile/update/<int:blog_id>',methods = ['GET','POST'])
 @login_required
 def update_blog(blog_id):
@@ -139,7 +133,7 @@ def update_blog(blog_id):
         user.description = form.description.data
 
         db.session.add(user)
-        # db.session.commit()
+        db.session.commit()
 
         return redirect(url_for('main.profile',uname=user.username))
 
