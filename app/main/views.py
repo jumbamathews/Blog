@@ -114,10 +114,7 @@ def delete_blog(blog_id):
            db.session.delete(comment)
            db.session.commit()
         
-    # if blog.user_id != current_user.id:
-    #     abort(404)
-
-    # form = DeleteForm()
+    
     user = current_user
     # if form.validate_on_submit():
         # user.bio = form.bio.data
