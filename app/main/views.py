@@ -31,7 +31,7 @@ def new_blog():
         
         description = form.description.data
         user_id = current_user
-        # category = form.category.data
+        
         print(current_user._get_current_object().id)
         new_blog = Blog(user_id =current_user._get_current_object().id, title = title,description=description)
         db.session.add(new_blog)
