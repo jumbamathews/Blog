@@ -21,7 +21,7 @@ def index():
     posts = Blog.query.all()
     quotes = getQuotes()
     title = 'Welcome Home-Minute Pitch'
-    # Educational = Blog.query.filter_by(category="Educational")
+    
     # Musical = Blog.query.filter_by(category = "Musical")
     # Religion = Blog.query.filter_by(category = "Religion")
     # Comedy = Blog.query.filter_by(category = "Comedy")
