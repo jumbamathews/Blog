@@ -27,7 +27,7 @@ def index():
     
 
     return render_template('index.html', title = title, posts = posts,quotes=quotes)
-    # Educational=Educational, Musical= Musical, Religion = Religion, Comedy = Comedy)
+    
 
 
 @main.route('/blogs/new/', methods = ['GET','POST'])
