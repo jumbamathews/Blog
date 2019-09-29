@@ -1,9 +1,9 @@
 # Application name
 
- ## Minute-pitch
+ ## Personal Blog
 
 # Description
-an application that allows users to use that one minute wisely. The users will submit their one minute pitches and other users will vote on them and leave comments to give their feedback on them.
+this is a personal blogging website where you can create and share your opinions
 ## Link to Live Site 
 
 ## Installation Requirements
@@ -40,10 +40,11 @@ an application that allows users to use that one minute wisely. The users will s
 ## Technical Requirements
    This can be found in the specs.md file.
 ## User Stories
-  * A user can see the pitches posted by other people
-  * A user can eithr downvote or upvote on a pitch as long as they are signed in.
-  * A user can add comment on the different pitches .
-  * A user can view and submit pitches by category.
+  * As a user, I would like to view the blog posts on the site
+  * As a user, I would like to comment on blog posts
+  * As a user, I would like to view the most recent posts
+  * As a user, I would like to an email alert when a new post is made by joining a subscription.
+  * As a user, I would like to see random quotes on the site
 
 ## Technologies Used
   * Python 3.6.5
@@ -54,4 +55,4 @@ an application that allows users to use that one minute wisely. The users will s
 ## License
 MIT License
 Licensed under MIT License
-Ⓒ Made in August 2019 by ElianeH
+Ⓒ Made in September 2019 by ElianeH
