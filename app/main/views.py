@@ -17,7 +17,7 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    # myblog = Blog.query.filter_by().first()
+    
     posts = Blog.query.all()
     quotes = getQuotes()
     title = 'Welcome Home-Minute Pitch'
