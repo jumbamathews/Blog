@@ -1,0 +1,6 @@
+.line{
+   color: red;
+   }
+   #sticky-footer {
+    flex-shrink: none;
+  }

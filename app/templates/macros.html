@@ -1,42 +1,13 @@
 
-{% macro display(category_list) %}
-<div class="row">
-	{% if category_list %}
-		{% for category in category_list %}
-		<div class="col-md-6">
-			<div class="thumbnail text-center">
-			<div class="card">
-				<p>
-					<h2>{{category.description}}</h2>
-					<cite class="blockquote-footer"> Posted by {{category.user.username}}</cite>
-				
-				</p>
-        
-				<a href="{{url_for('main.new_comment',pitch_id = category.id)}}" class="glyphicon glyphicon-comment" style="margin:10px;color: #c70d3a"></a> 
-				
-				<a href="{{url_for('main.upvote',pitch_id = category.id)}}" class="glyphicon glyphicon-thumbs-up" style="margin:10px;color: #c70d3a" ><i></i><span>{{category.upvotes.count()}}</span></a>
-
-				<a href="{{url_for('main.downvote',pitch_id = category.id)}}" class= "glyphicon glyphicon-thumbs-down" style="margin:10px;color: #c70d3a"><i></i><span>{{category.downvotes.count()}}</span></a>
-
-			</div>
-		</div>
-
-		</div>
-		{% endfor %}
-	{% else %}
-	{% endif %}
-</div>
-{% endmacro %}
-
 {% macro displayComment(comments) %}
 <ul>
 
 			{% if comments %}
-			{% for comment in comments %}
+			{% for comments in comments %}
 			<div class="thumbnail text-center">
 					<div class="card">
-						<a><p>{{ comment.description }}</p></a>
-						<cite> posted by {{comment.user.username}}</cite>
+						<a><p>{{ comments.description }}</p></a>
+						<cite> posted by {{comments.user.username}}</cite>
 				</div>
 				</div>
 			{% endfor %}

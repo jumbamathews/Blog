@@ -1,8 +1,8 @@
-"""oklm
+"""Initial Migration
 
-Revision ID: 8a749aa2b118
+Revision ID: 415d8645b80a
 Revises: 
-Create Date: 2019-09-24 12:20:53.066960
+Create Date: 2019-09-25 12:09:19.576908
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '8a749aa2b118'
+revision = '415d8645b80a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,7 +36,7 @@ def upgrade():
     )
     op.create_index(op.f('ix_users_email'), 'users', ['email'], unique=True)
     op.create_index(op.f('ix_users_username'), 'users', ['username'], unique=False)
-    op.create_table('pitch',
+    op.create_table('blog',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
@@ -45,31 +45,31 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_pitch_description'), 'pitch', ['description'], unique=False)
+    op.create_index(op.f('ix_blog_description'), 'blog', ['description'], unique=False)
     op.create_table('comments',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('pitch_id', sa.Integer(), nullable=False),
+    sa.Column('blog_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
-    sa.ForeignKeyConstraint(['pitch_id'], ['pitch.id'], ),
+    sa.ForeignKeyConstraint(['blog_id'], ['blog.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('downvotes',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('downvote', sa.Integer(), nullable=True),
-    sa.Column('pitch_id', sa.Integer(), nullable=True),
+    sa.Column('blog_id', sa.Integer(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['pitch_id'], ['pitch.id'], ),
+    sa.ForeignKeyConstraint(['blog_id'], ['blog.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('upvotes',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('upvote', sa.Integer(), nullable=True),
-    sa.Column('pitch_id', sa.Integer(), nullable=True),
+    sa.Column('blog_id', sa.Integer(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['pitch_id'], ['pitch.id'], ),
+    sa.ForeignKeyConstraint(['blog_id'], ['blog.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -81,8 +81,8 @@ def downgrade():
     op.drop_table('upvotes')
     op.drop_table('downvotes')
     op.drop_table('comments')
-    op.drop_index(op.f('ix_pitch_description'), table_name='pitch')
-    op.drop_table('pitch')
+    op.drop_index(op.f('ix_blog_description'), table_name='blog')
+    op.drop_table('blog')
     op.drop_index(op.f('ix_users_username'), table_name='users')
     op.drop_index(op.f('ix_users_email'), table_name='users')
     op.drop_table('users')

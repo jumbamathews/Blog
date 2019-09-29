@@ -1,7 +1,7 @@
 from flask import render_template,redirect,url_for, flash,request
 from . import auth
-from ..models import User
-from .forms import LoginForm,RegistrationForm
+from ..models import User,Subscription
+from .forms import LoginForm,RegistrationForm, SubscriptionForm
 from .. import db
 from flask_login import login_user,logout_user,login_required
 from ..email import mail_message
@@ -43,3 +43,22 @@ def register():
         return redirect(url_for('auth.login'))
         title = "New Account"
     return render_template('auth/register.html',registration_form = form)
+
+@auth.route('/subscription', methods=["GET", "POST"])
+def subscription():
+    subform = SubscriptionForm()
+    if subform.validate_on_submit():
+        subscribers = Subscription(name=subform.name.data, email=subform.user_email.data)
+
+        db.session.add(subscribers)
+        db.session.commit()
+
+        mail_message("Welcome to Express Yourself Blog...",
+                     "email/welcome_user", subscribers.email, subscribers=subscribers)
+
+        return redirect(url_for('main.index'))
+        title = "New Subscription"
+    return render_template('auth/subscribe.html', subscription_form=subform)
+
+
+

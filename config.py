@@ -2,9 +2,9 @@ import os
 
 class Config:
 
-   
+    QUOTES_API = 'http://quotes.stormconsultancy.co.uk/random.json'
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:maman@localhost/pitch'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:maman@localhost/blog'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
@@ -21,7 +21,7 @@ class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:maman@localhost/watchlist_test'
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:maman@localhost/pitch'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:maman@localhost/blog'
     DEBUG = True
 
 config_options = {

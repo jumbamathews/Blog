@@ -3,6 +3,20 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from . import login_manager
 
+class Quotes:
+    '''
+    Quotes class to define Quote Objects
+    '''
+    def __init__(self,id,author,quote,permalink):
+        self.id =id
+        self.author = author
+        self.quote = quote
+        self.permalink = "http://quotes.stormconsultancy.co.uk/quotes/31"
+
+    def hello(self):
+        self.s = requests.Session()
+        self.s.headers.update()
+        return True
 
 
 
@@ -17,7 +31,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     password_secure = db.Column(db.String(255))
-    pitch = db.relationship('Pitch', backref='user', lazy='dynamic')
+    blog = db.relationship('Blog', backref='user', lazy='dynamic')
     comment = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
     upvotes = db.relationship('Upvote', backref = 'user', lazy = 'dynamic')
     downvotes = db.relationship('Downvote', backref = 'user', lazy = 'dynamic')
@@ -41,28 +55,35 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
-class Pitch(db.Model):
+class Blog(db.Model):
     '''
     '''
-    __tablename__ = 'pitch'
+    __tablename__ = 'blog'
 
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
-    description = db.Column(db.String(), index = True)
+    description = db.Column(db.String())
     title = db.Column(db.String())
-    category = db.Column(db.String(255), nullable=False)
-    comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
-    upvotes = db.relationship('Upvote', backref = 'pitch', lazy = 'dynamic')
-    downvotes = db.relationship('Downvote', backref = 'pitch', lazy = 'dynamic')
+    comments = db.relationship('Comment',backref='blog',lazy='dynamic')
+    upvotes = db.relationship('Upvote', backref = 'blog', lazy = 'dynamic')
+    downvotes = db.relationship('Downvote', backref = 'blog', lazy = 'dynamic')
 
     
     @classmethod
-    def get_pitches(cls, id):
-        pitches = Pitch.query.order_by(pitch_id=id).desc().all()
+    def get_blog(cls, id):
+        blogs = Blog.query.order_by(blog_id=id).desc().all()
         return pitches
 
+    def delete_blog(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update_blog(self):
+        db.session.add(self)
+        db.session.commit()
+
     def __repr__(self):
-        return f'Pitch {self.description}'
+        return f'Blog {self.description}'
 
     
 
@@ -70,7 +91,7 @@ class Comment(db.Model):
     __tablename__='comments'
     
     id = db.Column(db.Integer,primary_key=True)
-    pitch_id = db.Column(db.Integer, db.ForeignKey('pitch.id'), nullable=False)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
     description = db.Column(db.Text)
 
@@ -84,7 +105,7 @@ class Upvote(db.Model):
 
     id = db.Column(db.Integer,primary_key=True)
     upvote = db.Column(db.Integer,default=1)
-    pitch_id = db.Column(db.Integer,db.ForeignKey('pitch.id'))
+    blog_id = db.Column(db.Integer,db.ForeignKey('blog.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 
     def save_upvotes(self):
@@ -93,22 +114,22 @@ class Upvote(db.Model):
 
 
     def add_upvotes(cls,id):
-        upvote_pitch = Upvote(user = current_user, pitch_id=id)
-        upvote_pitch.save_upvotes()
+        upvote_blog = Upvote(user = current_user, blog_id=id)
+        upvote_blog.save_upvotes()
 
     
     @classmethod
     def get_upvotes(cls,id):
-        upvote = Upvote.query.filter_by(pitch_id=id).all()
+        upvote = Upvote.query.filter_by(blog_id=id).all()
         return upvote
 
     @classmethod
-    def get_all_upvotes(cls,pitch_id):
+    def get_all_upvotes(cls,blog_id):
         upvotes = Upvote.query.order_by('id').all()
         return upvotes
 
     def __repr__(self):
-        return f'{self.user_id}:{self.pitch_id}'
+        return f'{self.user_id}:{self.blog_id}'
 
 
 
@@ -117,7 +138,7 @@ class Downvote(db.Model):
 
     id = db.Column(db.Integer,primary_key=True)
     downvote = db.Column(db.Integer,default=1)
-    pitch_id = db.Column(db.Integer,db.ForeignKey('pitch.id'))
+    blog_id = db.Column(db.Integer,db.ForeignKey('blog.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 
     def save_downvotes(self):
@@ -126,22 +147,32 @@ class Downvote(db.Model):
 
 
     def add_downvotes(cls,id):
-        downvote_pitch = Downvote(user = current_user, pitch_id=id)
-        downvote_pitch.save_downvotes()
+        downvote_blog = Downvote(user = current_user, blog_id=id)
+        downvote_blog.save_downvotes()
 
     
     @classmethod
     def get_downvotes(cls,id):
-        downvote = Downvote.query.filter_by(pitch_id=id).all()
+        downvote = Downvote.query.filter_by(blog_id=id).all()
         return downvote
 
     @classmethod
-    def get_all_downvotes(cls,pitch_id):
+    def get_all_downvotes(cls,blog_id):
         downvote = Downvote.query.order_by('id').all()
         return downvote
 
     def __repr__(self):
-        return f'{self.user_id}:{self.pitch_id}'
+        return f'{self.user_id}:{self.blog_id}'
+
+class Subscription(db.Model):
+    __tablename__ = 'subscribers'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(100), unique=True)
+
+    def __repr__(self):
+        return f'User {self.name}'
+
 
 class Role(db.Model):
     __tablename__ = 'roles'

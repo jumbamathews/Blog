@@ -4,45 +4,70 @@
 {% include 'navbar.html'%}
 {% endblock %}
 
-  {% block content %}
-    <div class="container">
-            <div class="jumbotron jumbotron-fluid">
-      <h2 style="color: #c70d3a;text-align: center" class="display-4">Welcome to our page,</h2>
-      <p style="color: #979797;text-align: center" class="lead">you have to post a one minute pitch please feel free to post in any category of your choice</p>
-      <h4 style="text-align: center" ><a  href="/pitches/new/" style="color: #c70d3a"><span class="glyphicon glyphicon-plus" aria-hidden="true" style="color: #c70d3a"></span>   Add Your pitch </a></h4>
-      </div>
-      <br>
-      <ul class="nav nav-tabs" role="tablist" style="color: #c70d3a">
-        <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#Educational"style="color: #c70d3a">Education</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#Musical" style="color: #c70d3a">Musical</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#Religion" style="color: #c70d3a">Religion</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#Comedy" style="color: #c70d3a">Comedy</a>
-        </li>
-      </ul>
+{% block styles%} 
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
 
-      <div class="tab-content">
-        <div id="Educational" class="container tab-pane active"><br>
-          {{ macro.display(Educational) }}
-          
-        </div>
-        <div id="Musical" class="container tab-pane fade"><br>
-          {{ macro.display(Musical) }}
-        </div>
-        <div id="Religion" class="container tab-pane fade"><br>
-          {{ macro.display(Religion)}}
-        </div>
-        <div id="Comedy" class="container tab-pane fade"><br>
-          {{ macro.display(Comedy) }}
-        </div>
-        
+  {% block content %}
+   <div class="container">
+            
+      <h1 style="color: black;text-align: center" class="display-4">Express Yourself</h2>
+      <hr>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+              <div class="card card-image">
       </div>
-    </div>
+          </div>
+          </div>
+          <br>
+       
+          <div class="jumbotron">
+      <h2 style="color:rgb(41, 40, 40) ;text-align: center" class="lead"> welcome to our Blog!</h2>
+          
+          
+      <h4 style="color:rgb(41, 40, 40) ;text-align: center" class="lead">this is a personal blogging website where you can create and share your opinions</h4>
+
+      <h4 style="text-align: center" ><a  href="/blogs/new/" style="color:black"><span class="glyphicon glyphicon-plus" aria-hidden="true" style="color: #e5d429"></span>   Add Your pitch </a></h4>
+      </div>
+      
+      
+
+
+     
+          {% for post in posts %}
+             <div class="row">
+              <div class="col-md-12">
+                <div class="thumbnail text-center">
+               
+                  <p>
+                    <h2>{{post.description}}</h2>
+                    <cite class="blockquote-footer"> Posted by {{post.user.username}}</cite>
+                  
+                  </p>
+                  
+                  <a href="{{url_for('main.new_comment',blog_id = post.id)}}" class="glyphicon glyphicon-comment" style="margin:10px;color: #e5d429"></a> 
+                  
+                  <a href="{{url_for('main.upvote',blog_id = post.id)}}" class="glyphicon glyphicon-thumbs-up" style="margin:10px;color: #e5d429"><i></i><span>{{post.upvotes.count()}}</span></a>
+          
+                  <a href="{{url_for('main.downvote',blog_id = post.id)}}" class= "glyphicon glyphicon-thumbs-down" style="margin:10px;color: #e5d429"><i></i><span>{{post.downvotes.count()}}</span></a>
+          
+                </div>
+              
+          
+              </div>
+             </div>
+          
+              <!-- <p>{{post.description}}</p> -->
+              
+          
+           {% endfor %}
+           <h2 style="color:black;text-align: center" class="lead">Daily Quotes:</h2>
+           <div  class="card-body" style="color:rgb(41, 40, 40) ;text-align: center">
+            <p >{{ quotes.quote }}</p>
+            <cite>{{ quotes.author }}</cite>
+          </div>
+          
   </body>
   {% endblock %}
