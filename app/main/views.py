@@ -23,7 +23,7 @@ def index():
     title = 'Welcome Home-Minute Pitch'
     
     
-    # Religion = Blog.query.filter_by(category = "Religion")
+    
     # Comedy = Blog.query.filter_by(category = "Comedy")
 
     return render_template('index.html', title = title, posts = posts,quotes=quotes)
