@@ -24,7 +24,7 @@ def index():
     
     
     
-    # Comedy = Blog.query.filter_by(category = "Comedy")
+    
 
     return render_template('index.html', title = title, posts = posts,quotes=quotes)
     # Educational=Educational, Musical= Musical, Religion = Religion, Comedy = Comedy)
