@@ -17,19 +17,10 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    
     posts = Blog.query.all()
     quotes = getQuotes()
     title = 'Welcome Home-Minute Pitch'
-    
-    
-    
-    
-
     return render_template('index.html', title = title, posts = posts,quotes=quotes)
-    
-
-
 @main.route('/blogs/new/', methods = ['GET','POST'])
 @login_required
 def new_blog():
