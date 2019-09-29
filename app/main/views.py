@@ -22,7 +22,7 @@ def index():
     quotes = getQuotes()
     title = 'Welcome Home-Minute Pitch'
     
-    # Musical = Blog.query.filter_by(category = "Musical")
+    
     # Religion = Blog.query.filter_by(category = "Religion")
     # Comedy = Blog.query.filter_by(category = "Comedy")
 
