@@ -116,9 +116,7 @@ def delete_blog(blog_id):
         
     
     user = current_user
-    # if form.validate_on_submit():
-        # user.bio = form.bio.data
-
+   
     db.session.delete(blog)
     db.session.commit()
 
