@@ -5,7 +5,7 @@ from ..models import User,Blog
 
 class PitchForm(FlaskForm):
     title = StringField('Title', validators=[Required()])
-    description = TextAreaField("What would you like to pitch ?",validators=[Required()])
+    description = TextAreaField("What on your mind ?",validators=[Required()])
     submit = SubmitField('Submit')
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.',validators = [Required()])
@@ -19,12 +19,9 @@ class UpvoteForm(FlaskForm):
 class DownvoteForm(FlaskForm):
 	submit = SubmitField()
 
-class DeleteForm(FlaskForm):
-	submit = SubmitField()
-
 class UpdateBlogForm(FlaskForm):
     title=StringField('Title', validators=[Required()])
-    description = TextAreaField('edit pitch',validators = [Required()])
+    description = TextAreaField('edit blog',validators = [Required()])
     submit = SubmitField('Submit')
 
 

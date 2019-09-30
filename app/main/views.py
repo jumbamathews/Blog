@@ -4,7 +4,7 @@ from ..models import  User,Blog,Comment,Upvote,Downvote,Subscription
 from . import main
 from ..request import getQuotes
 from flask_login import login_required, current_user
-from .forms import UpdateProfile,PitchForm,CommentForm,UpvoteForm,DownvoteForm,DeleteForm,UpdateBlogForm
+from .forms import UpdateProfile,PitchForm,CommentForm,UpvoteForm,DownvoteForm,UpdateBlogForm
 from .. import db,photos
 import requests 
 from ..email import mail_message
@@ -37,9 +37,9 @@ def new_blog():
         new_blog = Blog(user_id =current_user._get_current_object().id, title = title,description=description)
         db.session.add(new_blog)
         db.session.commit()
-        # for email in subscribe:
-        #     mail_message("New Blog Alert!!!!",
-        #                  "email/blog_alert", email.email, subscribe=subscribe)
+        for email in subscribe:
+            mail_message("New Blog Alert!!!!",
+                         "email/blog_alert", email.email, subscribe=subscribe)
         return redirect(url_for('main.index'))
        
     return render_template('pitches.html',form=form)
