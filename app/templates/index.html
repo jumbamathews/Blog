@@ -18,6 +18,7 @@
         <div class="row">
           <div class="col-md-12">
               <div class="card card-image">
+                <img src="../static/photos/header2.jpg">
       </div>
           </div>
           </div>
@@ -50,10 +51,10 @@
                   </p>
                   
                   <a href="{{url_for('main.new_comment',blog_id = post.id)}}" class="glyphicon glyphicon-comment" style="margin:10px;color: #e5d429"></a> 
-                  
+                
                   <a href="{{url_for('main.upvote',blog_id = post.id)}}" class="glyphicon glyphicon-thumbs-up" style="margin:10px;color: #e5d429"><i></i><span>{{post.upvotes.count()}}</span></a>
           
-                  <a href="{{url_for('main.downvote',blog_id = post.id)}}" class= "glyphicon glyphicon-thumbs-down" style="margin:10px;color: #e5d429"><i></i><span>{{post.downvotes.count()}}</span></a>
+                  <a href="{{url_for('main.downvote',blog_id = post.id)}}" class= "glyphicon glyphicon-thumbs-down" style="margin:10px;color: #e5d429"><i></i><span>{{post.downvotes.count()}}</span></a> 
           
                 </div>
               

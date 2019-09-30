@@ -45,9 +45,9 @@
          
          <a href="{{url_for('main.new_comment',blog_id = blog.id)}}" class="glyphicon glyphicon-comment" style="margin:10px;color: #c70d3a"></a> 
          
-         <a href="{{url_for('main.upvote',blog_id = blog.id)}}" class="glyphicon glyphicon-thumbs-up" style="margin:10px;color: #c70d3a" ><i></i><span>{{blog.upvotes.count()}}</span></a>
+         <!-- <a href="{{url_for('main.upvote',blog_id = blog.id)}}" class="glyphicon glyphicon-thumbs-up" style="margin:10px;color: #c70d3a" ><i></i><span>{{blog.upvotes.count()}}</span></a>
  
-         <a href="{{url_for('main.downvote',blog_id = blog.id)}}" class= "glyphicon glyphicon-thumbs-down" style="margin:10px;color: #c70d3a"><i></i><span>{{blog.downvotes.count()}}</span></a>
+         <a href="{{url_for('main.downvote',blog_id = blog.id)}}" class= "glyphicon glyphicon-thumbs-down" style="margin:10px;color: #c70d3a"><i></i><span>{{blog.downvotes.count()}}</span></a> -->
          <a href="{{url_for('main.delete_blog',blog_id = blog.id)}}" class= "glyphicon glyphicon-trash" style="margin:10px;color: #c70d3a"></a>
          <a href="{{url_for('main.update_blog',blog_id = blog.id)}}" class= "glyphicon glyphicon-pencil" style="margin:10px;color: #c70d3a"></a>
  

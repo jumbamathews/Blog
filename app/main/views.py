@@ -21,7 +21,7 @@ def index():
     quotes = getQuotes()
     title = 'Welcome Home-Minute Pitch'
     return render_template('index.html', title = title, posts = posts,quotes=quotes)
-    
+
 @main.route('/blogs/new/', methods = ['GET','POST'])
 @login_required
 def new_blog():
@@ -123,15 +123,15 @@ def delete_blog(blog_id):
 @main.route('/profile/update/<int:blog_id>',methods = ['GET','POST'])
 @login_required
 def update_blog(blog_id):
-    user = Blog.query.filter_by(id = blog_id).first()
-    if user is None:
+    users = Blog.query.filter_by(id = blog_id).first()
+    if users is None:
         abort(404)
 
     form = UpdateBlogForm()
     user = current_user
     if form.validate_on_submit():
-        user.title = form.title.data
-        user.description = form.description.data
+        users.title = form.title.data
+        users.description = form.description.data
 
         db.session.add(user)
         db.session.commit()

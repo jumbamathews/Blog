@@ -13,10 +13,10 @@ class Quotes:
         self.quote = quote
         self.permalink = "http://quotes.stormconsultancy.co.uk/quotes/31"
 
-    # def hello(self):
-    #     self.s = requests.Session()
-    #     self.s.headers.update()
-    #     return True
+    def hello(self):
+        self.s = requests.Session()
+        self.s.headers.update()
+        return True
 
 
 
