@@ -19,7 +19,7 @@ def index():
     '''
     posts = Blog.query.all()
     quotes = getQuotes()
-    title = 'Welcome Home-Minute Pitch'
+    title = 'Welcome Home-Personal Blog'
     return render_template('index.html', title = title, posts = posts,quotes=quotes)
 
 @main.route('/blogs/new/', methods = ['GET','POST'])
@@ -133,10 +133,13 @@ def update_blog(blog_id):
         users.title = form.title.data
         users.description = form.description.data
 
-        db.session.add(user)
+        db.session.add(users)
         db.session.commit()
 
         return redirect(url_for('main.profile',uname=user.username))
+    elif request.method == 'GET':
+        form.title.data = users.title
+        form.description.data = users.description
 
     return render_template('profile/update_blog.html',form =form,user=user)
 
